@@ -262,7 +262,8 @@ expression: self.payload
           }
         ]
       },
-      "pr_run_mode": "plan"
+      "pr_run_mode": "plan",
+      "external_repo_commit": null
     }
   },
   "linkage": []
@@ -464,6 +465,7 @@ jobs:
           owner: "custom-owner"
           repo: "cool-repo"
           token: ${{ secrets.GH_RELEASES_TOKEN }}
+          commit: ${{ fromJson(needs.host.outputs.val).ci.github.external_repo_commit }}
           tag: ${{ needs.plan.outputs.tag }}
           name: ${{ fromJson(needs.host.outputs.val).announcement_title }}
           body: ${{ fromJson(needs.host.outputs.val).announcement_github_body }}

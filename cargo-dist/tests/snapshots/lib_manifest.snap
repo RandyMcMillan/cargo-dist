@@ -40,7 +40,8 @@ stdout:
   "ci": {
     "github": {
       "artifacts_matrix": {},
-      "pr_run_mode": "plan"
+      "pr_run_mode": "plan",
+      "external_repo_commit": null
     }
   },
   "linkage": []
