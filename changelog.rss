@@ -1,0 +1,1644 @@
+<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>cargo-dist Changelog</title><link>http://127.0.0.1:7979/cargo-dist/changelog</link><description>Changelog information for cargo-dist</description><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><atom:link href="http://127.0.0.1:7979/cargo-dist/changelog.rss" rel="self"/><item><title>Version 0.15.0-prerelease.2</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.15.0-prerelease.2</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.15.0-prerelease.2</guid><content:encoded><![CDATA[<p>Nothing Yet!</p>
+]]></content:encoded></item><item><title>Version 0.15.0-prerelease.1</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.15.0-prerelease.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.15.0-prerelease.1</guid><content:encoded><![CDATA[<p>Nothing Yet!</p>
+]]></content:encoded></item><item><title>Version 0.14.1 (2024-05-08)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.1</guid><content:encoded><![CDATA[<p>This is a bugfix release which fixes release announcement text for apps whose <code>repository</code> field in <code>Cargo.toml</code> ends with <code>.git</code> (<a href="https://github.com/axodotdev/cargo-dist/issues/1020" rel="noopener noreferrer">#1020</a>). It also updates several dependencies and upgrades the version of Rust used to build cargo-dist to 1.78.0.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1024" rel="noopener noreferrer">fix: host should use web_url()</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0 (2024-05-06)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0-prerelease.6</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.6</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.6</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0-prerelease.5</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.5</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.5</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0-prerelease.4</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.4</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.4</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0-prerelease.3</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.3</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.3</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0-prerelease.2</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.2</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.2</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.14.0-prerelease.1</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.14.0-prerelease.1</guid><content:encoded><![CDATA[<p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.3 (2024-04-22)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.3</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.3</guid><content:encoded><![CDATA[<p>This minor release adds some more resilience to release.yml by explicitly enabling windows
+longpath support, in case your repository (or submodules) contain extremely long filenames or paths.</p>
+<p>It also adds some missing dependency constraints for custom local and global build jobs.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/951" rel="noopener noreferrer">improvements to release.yml</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.3-prerelease.1</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.3-prerelease.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.3-prerelease.1</guid><content:encoded><![CDATA[<p>This minor release adds some more resilience to release.yml by explicitly enabling windows
+longpath support, in case your repository (or submodules) contain extremely long filenames or paths.</p>
+<p>It also adds some missing dependency constraints for custom local and global build jobs.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/951" rel="noopener noreferrer">improvements to release.yml</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.2 (2024-04-16)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.2</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.2</guid><content:encoded><![CDATA[<p>This minor release updates several dependencies and contains one improvement to the shell installer.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/939" rel="noopener noreferrer">update to axoasset which should fix remaining issues with recursive ZIP files on Windows</a> (<a href="https://github.com/axodotdev/cargo-dist/issues/873" rel="noopener noreferrer">#873</a>)</li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/941" rel="noopener noreferrer">install the correct architecture binary on macOS when run from a shell inside Rosetta</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.1 (2024-04-12)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.1</guid><content:encoded><![CDATA[<p>This is a release that adds some improvements to the logic for updating PATH and rcfiles in installers.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/917" rel="noopener noreferrer">don't corrupt rcfiles that are missing a trailing newline</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/928" rel="noopener noreferrer">when invoking shell installer from updater, append /bin and use HOME vars more precisely</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/929" rel="noopener noreferrer">as above, but for powershell</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/927/" rel="noopener noreferrer">use target-specific keys to fix swatinem rust cache</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.1-prerelease.2</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.1-prerelease.2</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.1-prerelease.2</guid><content:encoded><![CDATA[<p>This is a release that adds some improvements to the logic for updating PATH and rcfiles in installers.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/917" rel="noopener noreferrer">don't corrupt rcfiles that are missing a trailing newline</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/928" rel="noopener noreferrer">when invoking shell installer from updater, append /bin and use HOME vars more precisely</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/929" rel="noopener noreferrer">as above, but for powershell</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/927/" rel="noopener noreferrer">use target-specific keys to fix swatinem rust cache</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.1-prerelease.1</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.1-prerelease.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.1-prerelease.1</guid><content:encoded><![CDATA[<p>This is a release that adds some improvements to the logic for updating PATH and rcfiles in installers.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/917" rel="noopener noreferrer">don't corrupt rcfiles that are missing a trailing newline</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/928" rel="noopener noreferrer">when invoking shell installer from updater, append /bin and use HOME vars more precisely</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/929" rel="noopener noreferrer">as above, but for powershell</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/927/" rel="noopener noreferrer">use target-specific keys to fix swatinem rust cache</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0 (2024-04-09)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.9</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.9</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.9</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.11</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.11</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.11</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.10</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.10</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.10</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.8</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.8</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.8</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.7</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.7</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.7</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.6</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.6</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.6</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.5</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.5</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.5</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.4</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.4</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.4</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.12.2 (2024-04-04)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.12.2</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.12.2</guid><content:encoded><![CDATA[<p>This is a minor release which regenerates the shell installer using the fix from 0.12.1. It fixes an issue which would cause the cargo-dist shell installer to fail if cargo-dist itself is running at the time the installer tries to write the new copy.</p>
+]]></content:encoded></item><item><title>Version 0.12.1 (2024-04-04)</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.12.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.12.1</guid><content:encoded><![CDATA[<p>This is a minor bugfix release.</p>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/895" rel="noopener noreferrer">fix recursive ZIP generation on Windows</a></li>
+<li>@Gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">fix overwriting actively-running binary in shell installer</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.3</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.3</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.3</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.2</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.2</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.2</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item><item><title>Version 0.13.0-prerelease.1</title><link>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.1</link><category domain="https://github.com/axodotdev/cargo-dist">cargo-dist Changelog</category><guid>http://127.0.0.1:7979/cargo-dist/changelog/v0.13.0-prerelease.1</guid><content:encoded><![CDATA[<p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+]]></content:encoded></item></channel></rss>

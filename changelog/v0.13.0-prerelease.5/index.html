@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" id="oranda" class="dark axo">
+  <head>
+    <title>cargo-dist</title>
+    
+      <meta property="og:url" content="https://opensource.axo.dev/cargo-dist/" />
+    
+    
+      <link rel="icon" href="/cargo-dist/favicon.ico" />
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      <meta name="description" content="Shippable application packaging for Rust" />
+      <meta property="og:description" content="Shippable application packaging for Rust" />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="cargo-dist" />
+    
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="og:image" content="https://www.axo.dev/meta_small.jpeg" />
+    
+    
+      <meta property="og:image:alt" content="axo" />
+    
+    
+      <meta name="twitter:creator" content="@axodotdev" />
+      <meta name="twitter:site" content="@axodotdev" />
+    
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+    <link rel="stylesheet" href="/cargo-dist/oranda-v0.6.1.css" />
+    
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-body">
+        
+          <div class="repo_banner">
+            <a href="https://github.com/axodotdev/cargo-dist">
+              <div class="github-icon" aria-hidden="true"></div>
+              Check out our GitHub!
+            </a>
+          </div>
+        
+
+        <main>
+          <header>
+            
+            <h1 class="title">cargo-dist</h1>
+            
+  <nav class="nav">
+    <ul>
+      <li><a href="/cargo-dist/">Home</a></li>
+
+      
+
+      
+        <li><a href="/cargo-dist/artifacts/">Install</a></li>
+      
+
+      
+        <li><a href="/cargo-dist/book/">Docs</a></li>
+      
+
+      
+
+      
+        <li><a href="/cargo-dist/changelog/">Changelog</a></li>
+      
+    </ul>
+  </nav>
+
+          </header>
+
+          
+  <div>
+    <h1>Version 0.13.0-prerelease.5</h1>
+    <div class="releases-body">
+      
+      
+      <section class="release pre-release ">
+  
+  <div class="release-info">
+    <span class="flex items-center gap-2">
+      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'>
+    <path stroke-linecap='round' stroke-linejoin='round' d='M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z' />
+    <path stroke-linecap='round' stroke-linejoin='round' d='M6 6h.008v.008H6V6z' /></svg>
+      v0.13.0-prerelease.5
+    </span>
+    <span class="flex items-center gap-2">
+      
+        <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'><path stroke-linecap='round' stroke-linejoin='round' d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5' /></svg>
+        Apr  5 2024 at 20:21 UTC
+      
+    </span>
+  </div>
+  <div class="release-body">
+    <p>This releases introduces a 'selfupdate' command, using cargo-dist's new updater support.</p>
+<p>It also includes several bugfixes and a technically-breaking-change to the dist-manifest feature.</p>
+<h2>Features</h2>
+<p>A new <code>cargo dist selfupdate</code> command has been added which updates cargo dist to the latest
+version and runs <code>cargo dist init</code> using that new version. As a result, this should in
+be a go-to replacement for most uses of <code>cargo dist init</code>.</p>
+<p>This is based on the new experimental <a href="https://github.com/axodotdev/axoupdater/" rel="noopener noreferrer">axoupdater library</a>.
+Essentially it just checks GitHub Releases or axo Releases for anything newer, and fetches and
+runs the appropriate shell/powershell installer.</p>
+<p>This library is the same one used for the updater feature of cargo-dist, which has cargo-dist
+provide a standalone separate updater binary. The benefit of us using the library directly is
+that we get a more unified design at the cost of needing to actually change the interface of
+our application -- something the separate binary avoids.</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/899" rel="noopener noreferrer">initial implementation</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/906" rel="noopener noreferrer">finalize implementation</a></li>
+</ul>
+<h2>Breaking Change</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/848" rel="noopener noreferrer">manifest reform</a></li>
+</ul>
+<p>This release makes a several changes to the dist-manifest format which ideally shouldn't
+be breaking in the strictest sense of the word, but are breaking in spirit. No one is expected
+to be effected, as the metadata in question is so niche that not even axo's own tooling
+was making a use of it.</p>
+<p>The upshot of this breakage is that we now properly collect and merge unambiguous per-platform and
+per-binary metadata from build machines, which is groundwork for significantly improved installers
+and tooling.</p>
+<p>Changes include:</p>
+<ul>
+<li>there is now a top-level <code>systems</code> map in the manifest
+<ul>
+<li>contains gathered information about each system cargo-dist ran on to build your release</li>
+<li>this effectively deprecates the <code>system_info</code> value, which was already optional and not terribly useful</li>
+</ul>
+</li>
+<li>there is now a top-level <code>assets</code> map in the manifest
+<ul>
+<li>contains gathered information about each binary cargo-dist built</li>
+<li>refers to the <code>systems{}</code> that the binary was built on</li>
+<li>contains linkage info</li>
+</ul>
+</li>
+<li>the top-level <code>linkage</code> array has been deprecated in favour of the same entries being nested in <code>assets</code>, and is now always empty
+<ul>
+<li>in future versions it may be removed, but the schema didn't mark this field as optional so it can't yet be removed</li>
+</ul>
+</li>
+<li><code>artifacts{}.assets[].id</code> now can optionally refer to an entry in <code>assets</code>
+<ul>
+<li>this allows you to precisely get the dependencies (linkage) for each binary in an archive, or for the whole archive (by merging them)</li>
+<li>in the future it will also be used to get things like libc version requirements</li>
+</ul>
+</li>
+<li><code>artifacts{}.checksums{}</code> has been added
+<ul>
+<li>contains the actual checksum value(s)</li>
+<li>the existing <code>artifacts{}.checksum</code> only refers to a checksum <em>file</em>, as previously the manifest could not be updated with "computed" info</li>
+<li>this being a map allows artifacts to have multiple checksums, which is useful since lots of things hard require sha256</li>
+</ul>
+</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/877" rel="noopener noreferrer">run apt-get update before installing system deps</a></li>
+<li>@ucodery <a href="https://github.com/axodotdev/cargo-dist/pull/818" rel="noopener noreferrer">make formula files pass brew lint</a></li>
+<li>@tshepang <a href="https://github.com/axodotdev/cargo-dist/pull/883" rel="noopener noreferrer">fix copyright year</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/884" rel="noopener noreferrer">further update copyright year</a></li>
+<li>@tisokun <a href="https://github.com/axodotdev/cargo-dist/pull/886" rel="noopener noreferrer">properly spell GitHub in CI yml</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/894" rel="noopener noreferrer">use mv instead of cp in installer.sh</a></li>
+<li>@nokazn <a href="https://github.com/axodotdev/cargo-dist/pull/900" rel="noopener noreferrer">fix broken link in docs</a></li>
+</ul>
+
+  </div>
+</section>
+    </div>
+  </div>
+
+        </main>
+      </div>
+
+      <footer>
+        
+          <a href="https://github.com/axodotdev/cargo-dist"><div class="github-icon" aria-hidden="true"></div></a>
+        
+        <span>
+          cargo-dist, MIT OR Apache-2.0
+        </span>
+      </footer>
+    </div>
+
+    
+      <script defer="true" data-domain="opensource.axo.dev" src="https://plausible.io/js/script.js"></script>
+    
+    
+
+    
+  </body>
+</html>

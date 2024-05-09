@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" id="oranda" class="dark axo">
+  <head>
+    <title>cargo-dist</title>
+    
+      <meta property="og:url" content="https://opensource.axo.dev/cargo-dist/" />
+    
+    
+      <link rel="icon" href="/cargo-dist/favicon.ico" />
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      <meta name="description" content="Shippable application packaging for Rust" />
+      <meta property="og:description" content="Shippable application packaging for Rust" />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="cargo-dist" />
+    
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="og:image" content="https://www.axo.dev/meta_small.jpeg" />
+    
+    
+      <meta property="og:image:alt" content="axo" />
+    
+    
+      <meta name="twitter:creator" content="@axodotdev" />
+      <meta name="twitter:site" content="@axodotdev" />
+    
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+    <link rel="stylesheet" href="/cargo-dist/oranda-v0.6.1.css" />
+    
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-body">
+        
+          <div class="repo_banner">
+            <a href="https://github.com/axodotdev/cargo-dist">
+              <div class="github-icon" aria-hidden="true"></div>
+              Check out our GitHub!
+            </a>
+          </div>
+        
+
+        <main>
+          <header>
+            
+            <h1 class="title">cargo-dist</h1>
+            
+  <nav class="nav">
+    <ul>
+      <li><a href="/cargo-dist/">Home</a></li>
+
+      
+
+      
+        <li><a href="/cargo-dist/artifacts/">Install</a></li>
+      
+
+      
+        <li><a href="/cargo-dist/book/">Docs</a></li>
+      
+
+      
+
+      
+        <li><a href="/cargo-dist/changelog/">Changelog</a></li>
+      
+    </ul>
+  </nav>
+
+          </header>
+
+          
+  <div>
+    <h1>Version 0.14.0-prerelease.4</h1>
+    <div class="releases-body">
+      
+      
+      <section class="release pre-release ">
+  
+  <div class="release-info">
+    <span class="flex items-center gap-2">
+      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'>
+    <path stroke-linecap='round' stroke-linejoin='round' d='M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z' />
+    <path stroke-linecap='round' stroke-linejoin='round' d='M6 6h.008v.008H6V6z' /></svg>
+      v0.14.0-prerelease.4
+    </span>
+    <span class="flex items-center gap-2">
+      
+        <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'><path stroke-linecap='round' stroke-linejoin='round' d='M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5' /></svg>
+        May  2 2024 at 22:59 UTC
+      
+    </span>
+  </div>
+  <div class="release-body">
+    <p>This is a BIG release for installers, with every installer getting big bugfixes and reworks.</p>
+<ul>
+<li>shell installers:
+<ul>
+<li>support cascading install-path rules like "install to $MY_APP_HOME, or ~/.my-app if that's not set"</li>
+<li>can install aliases for your binaries (symlink on unix, hardlink on windows)</li>
+<li>properly setup PATH for fish shell</li>
+<li>have more robust platform-support fallbacks</li>
+</ul>
+</li>
+<li>npm installers:
+<ul>
+<li>can be automatically published to npm</li>
+<li>support multiple binaries</li>
+<li>can install aliases for your binaries (additional bin commands on the package)</li>
+<li>can have a different name from their parent cargo package</li>
+<li>have more robust platform-support fallbacks</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+<li>homebrew installers
+<ul>
+<li>can install aliases for your binaries (builtin homebrew aliases)</li>
+<li>have more idiomatic install-hints</li>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/homebrew.html" rel="noopener noreferrer">have all new docs</a></li>
+</ul>
+</li>
+</ul>
+<h2>Features</h2>
+<h3>npm installer rewrite</h3>
+<p>The npm installer has been rewritten to remove almost every limitation it has.</p>
+<p>Notably, you can now have multiple binaries in an npm package without any issue. You can even make aliases for commands with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>.</p>
+<p>Although for the best user experience, ensuring your package <a href="https://docs.npmjs.com/cli/v7/commands/npx#description" rel="noopener noreferrer">unambiguously has one true command</a> is ideal. To help with this, the <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#npm-package" rel="noopener noreferrer">npm-package setting</a> was added, allowing you to rename your npm package (which is one of the disambiguators for the primary command of an npm package).</p>
+<p>You can also now automatically <a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html#quickstart" rel="noopener noreferrer">publish your npm packages</a> by <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#publish-jobs" rel="noopener noreferrer">setting <code>publish-jobs = ["npm"]</code></a>!</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/installers/npm.html" rel="noopener noreferrer">docs</a></li>
+<li>impl
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/974" rel="noopener noreferrer">rewrite npm installer</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/988" rel="noopener noreferrer">add npm-package config</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/966" rel="noopener noreferrer">add builtin npm publish</a></li>
+<li>@ashleygwilliams <a href="https://github.com/axodotdev/cargo-dist/pull/985" rel="noopener noreferrer">rewrite npm installer docs</a></li>
+</ul>
+</li>
+</ul>
+<h3>install-path cascades</h3>
+<p>The <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">install-path setting</a> that's used by the shell and powershell installers can now be an array of options to try in sequence. This is mostly useful for checking if special environment variables are set before falling back to some hardcoded subdir of $HOME.</p>
+<p>For instance, if you set:</p>
+<pre style="background-color:#263238;"><span style="color:#f07178;">install-dir </span><span style="color:#89ddff;">= ["</span><span style="color:#c3e88d;">$MY_APP_HOME/bin</span><span style="color:#89ddff;">", "</span><span style="color:#c3e88d;">~/.my-app/bin</span><span style="color:#89ddff;">"]
+</span></pre>
+
+<p>Then your shell and powershell installers will first check if <code>$MY_APP_HOME</code> is defined and install to <code>$MY_APP_HOME/bin</code> if it is. If it's not defined then it will use the more hardcoded <code>$HOME/.my-app/bin</code>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#install-paths" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/947" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>binary aliases</h3>
+<p>The shell, powershell, npm, and homebrew installers all now support aliases for binaries with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">bin-aliases setting</a>. These are not included in your downloadable archives, and are setup in an installer-specific way:</p>
+<ul>
+<li>
+<p>shell: symlinks</p>
+</li>
+<li>
+<p>powershell: hardlinks</p>
+</li>
+<li>
+<p>npm: extra "bin" entries pointing at the same command</p>
+</li>
+<li>
+<p>homebrew: bin.install_symlink</p>
+</li>
+<li>
+<p><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#bin-aliases" rel="noopener noreferrer">docs</a></p>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/964" rel="noopener noreferrer">add binary aliases</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/986" rel="noopener noreferrer">adjust feature name</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/997" rel="noopener noreferrer">force symlinks to overwrite</a></li>
+</ul>
+</li>
+</ul>
+<h3>publish github releases to other repo</h3>
+<p>If you need to publish your GitHub Releases to a different repo than the one you run your release workflow on, you can use the new <a href="github-releases-repo" rel="noopener noreferrer">github-releases-repo setting</a> to specify this.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#github-releases-repo" rel="noopener noreferrer">docs</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/967" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h3>disable alternative source tarballs</h3>
+<p>You can now disable the backup source tarballs uploaded by cargo-dist with the new <a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">source-tarball setting</a>.</p>
+<ul>
+<li><a href="https://opensource.axo.dev/cargo-dist/book/reference/config.html#source-tarball" rel="noopener noreferrer">docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/959" rel="noopener noreferrer">impl</a></li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/954" rel="noopener noreferrer">rewrite homebrew installer docs</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/1000" rel="noopener noreferrer">use more idiomatic homebrew install expressions</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/957" rel="noopener noreferrer">fix references to selfupdate command</a></li>
+<li>@gankra <a href="https://github.com/axodotdev/cargo-dist/pull/984" rel="noopener noreferrer">unify installer platform-compatibility code</a></li>
+<li>@mistydemeo <a href="https://github.com/axodotdev/cargo-dist/pull/958" rel="noopener noreferrer">implement fish support in installer</a></li>
+</ul>
+
+  </div>
+</section>
+    </div>
+  </div>
+
+        </main>
+      </div>
+
+      <footer>
+        
+          <a href="https://github.com/axodotdev/cargo-dist"><div class="github-icon" aria-hidden="true"></div></a>
+        
+        <span>
+          cargo-dist, MIT OR Apache-2.0
+        </span>
+      </footer>
+    </div>
+
+    
+      <script defer="true" data-domain="opensource.axo.dev" src="https://plausible.io/js/script.js"></script>
+    
+    
+
+    
+  </body>
+</html>
